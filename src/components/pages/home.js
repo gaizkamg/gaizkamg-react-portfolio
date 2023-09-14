@@ -4,7 +4,7 @@ import PortfolioContainer from "../portfolio/portfolio-container";
 const Home = () => {
     return (
         <div>
-            <h1  className='pages'>Home</h1> 
+            <h2  className='pages'>Home</h2> 
             <PortfolioContainer />
         </div>
     );

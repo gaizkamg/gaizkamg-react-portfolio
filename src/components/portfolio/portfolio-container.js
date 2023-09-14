@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+
 import PortfolioItem from "./portfolio-item";
 
 export default class PortfolioContainer extends Component {
@@ -8,58 +10,74 @@ export default class PortfolioContainer extends Component {
     this.state = {
       pageTitle: "Welcome to my portfolio",
       isLoading: false,
-      data: [
-        { title: "Quip", category: 'eCommerce' },
-        { title: "Eventbrite", category: 'Scheduling' },
-        { title: "Ministry Safe", category: 'Enterprise' },
-        { title: "SwingAway", category: 'eCommerce' },
-      ],
+      data: []
     };
 
-    this.hadlePageTitleUpdate = this.hadlePageTitleUpdate.bind(this);
-    
-  };
+    this.handleFilter = this.handleFilter.bind(this);
+  }
 
-  handlePageFilter(filter){
+  handleFilter(filter) {
+    this.setState({
+      data: this.state.data.filter(item => {
+        return item.category === filter;
+      })
+    });
+  }
+
+  getPortfolioItems() {
+    axios
+      .get("https://jordan.devcamp.space/portfolio/portfolio_items")
+      .then(response => {
         this.setState({
-            data: this.state.data.filter(item => {
-                return item.category === filter;
-            })
+          data: response.data.portfolio_items
         });
-  };
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
   portfolioItems() {
-    return this.state.data.map((item) => {
-      return <PortfolioItem title={item.title} url={"www.google.com"} />;
+    return this.state.data.map(item => {
+      return (
+        <PortfolioItem
+          key={item.id}
+          id={item.id}
+          title={item.name}
+          url={item.url}
+          category={item.category}
+          description={item.description}
+          slug={item.id}
+        />
+      );
     });
-  };
+  }
 
-  hadlePageTitleUpdate() {
-    this.setState({
-      pageTitle: "Something Else",
-    });
-  };
+  componentDidMount() {
+    this.getPortfolioItems();
+  }
 
   render() {
-    if(this.state.isLoading){
-        return <div>Loading...</div>;
+    if (this.state.isLoading) {
+      return <div>Loading...</div>;
     }
-
 
     return (
       <div>
         <h2>{this.state.pageTitle}</h2>
-        <button onClick={() => this.handlePageFilter('eCommerce')}>eCommerce</button>
-        <button onClick={() => this.handlePageFilter('Scheduling')}>Scheduling</button>
-        <button onClick={() => this.handlePageFilter('Enterprise')}>Enterprise</button>
+
+        <button onClick={() => this.handleFilter("eCommerce")}>
+          eCommerce
+        </button>
+        <button onClick={() => this.handleFilter("Scheduling")}>
+          Scheduling
+        </button>
+        <button onClick={() => this.handleFilter("Enterprise")}>
+          Enterprise
+        </button>
 
         {this.portfolioItems()}
-        <hr/>
-
-
-        <button onClick={this.hadlePageTitleUpdate}>Change title
-        </button>
       </div>
     );
-  };
-};
+  }
+}
