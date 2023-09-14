@@ -27,6 +27,18 @@ hr {
     width: 200%;
 }
 
+.pages{
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bolder;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 6rem;
+}
+
+.links{
+    font-size: 1.6rem;
+}
+
 .app {
     margin-top: 2rem;
     display: grid;
@@ -42,13 +54,12 @@ button{
     margin: 1rem;
 }
 
-.app > div > div {
+.portfolioItems {
     margin: 1.5rem;
     padding: 1rem;
     border: 1px solid blue;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    align-items: center;
-    
+    align-items: center;   
 }
