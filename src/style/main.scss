@@ -14,15 +14,41 @@ html {
 body {
     overflow-x: hidden;
     font-weight: normal;
-
+    font-size: 1.6rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     -webkit-tap-highlight-color: transparent;
 }
 
+hr {
+    margin: 2rem;
+    border: .1rem double;
+    width: 200%;
+}
+
 .app {
     margin-top: 2rem;
     display: grid;
     justify-items: center;
+
+}
+
+.app > div {
+    margin: 2rem;
+}
+
+button{
+    margin: 1rem;
+}
+
+.app > div > div {
+    margin: 1.5rem;
+    padding: 1rem;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
 }
