@@ -38,7 +38,12 @@ export default class PortfolioContainer extends Component {
   }
 
   portfolioItems() {
+    // Data that we'll need:
+    // -background image
+    // -logo
+    // 
     return this.state.data.map(item => {
+      debugger;
       return (
         <PortfolioItem
           key={item.id}
@@ -74,6 +79,7 @@ export default class PortfolioContainer extends Component {
         </button>
         <button onClick={() => this.handleFilter("Enterprise")}>
           Enterprise
+
         </button>
 
         {this.portfolioItems()}
@@ -81,3 +87,6 @@ export default class PortfolioContainer extends Component {
     );
   }
 }
+
+
+
