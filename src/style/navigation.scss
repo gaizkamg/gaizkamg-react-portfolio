@@ -1,0 +1,27 @@
+.nav-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 3rem;
+}
+
+.nav-link-wrapper {
+  text-transform: uppercase;
+
+  a {
+    margin: 20px;
+    color: $grey;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: 0.5s ease-in-out;
+    font-size: 1.6rem;
+  }
+
+  a:hover {
+    color: black;
+    border-bottom: 1px solid black;
+  }
+
+  .nav-link-active {
+    border-bottom: 1px solid black;
+  }
+}

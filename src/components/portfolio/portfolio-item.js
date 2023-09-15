@@ -17,8 +17,9 @@ export default function(props){
             <p>CATEGORY: {category}</p>
             <article>
                 DESCRIPTION:<br/>
-                {description}</article>
                 <img src={thumb_image_url} />
+                <img src={logo} />
+                {description}</article>
             <Link to={`/portfolio/${title}`}>Link</Link>
         </div>
     );
