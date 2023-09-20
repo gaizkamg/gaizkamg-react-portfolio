@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import PortfolioItem from "./portfolio-item";
+// import { getPortfolioItems } from "../pages/portfolio-manager";
 
 export default class PortfolioContainer extends Component {
   constructor() {
@@ -26,7 +27,7 @@ export default class PortfolioContainer extends Component {
 
   getPortfolioItems() {
     axios
-      .get("https://jordan.devcamp.space/portfolio/portfolio_items")
+      .get("https://jordan.devcamp.space/portfolio/portfolio_items", { withCredentials: true})
       .then((response) => {
         this.setState({
           data: response.data.portfolio_items,
@@ -45,7 +46,7 @@ export default class PortfolioContainer extends Component {
   }
 
   componentDidMount() {
-    this.getPortfolioItems();
+     this.getPortfolioItems();
   }
 
   render() {
