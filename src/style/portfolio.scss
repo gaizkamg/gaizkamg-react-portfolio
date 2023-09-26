@@ -4,7 +4,6 @@
 
   .portfolio-item-wrapper {
     position: relative;
-   
 
     .portfolio-img-background {
       background-size: cover;
@@ -19,13 +18,12 @@
       top: 0;
       display: flex;
       flex-direction: column;
-      flex-direction: center;
       justify-content: center;
       align-items: center;
       height: 100%;
       text-align: center;
-      padding: 0 100px;
-
+      padding-left: 100px;
+      padding-right: 100px;
 
       .subtitle {
         transition: 1s ease-in-out;
@@ -41,21 +39,11 @@
     .logo-wrapper img {
       width: 50%;
       margin-bottom: 20px;
-
-
     }
-
-  
   }
-
-/*   .portfolio-item-wrapper:hover .portfolio-img-background{
-    transition: 1s;
-    filter: brightness(10%);
-    
-  } */
 }
 
-.image-blur{
+.image-blur {
   transition: 1s;
   filter: brightness(10%);
 }

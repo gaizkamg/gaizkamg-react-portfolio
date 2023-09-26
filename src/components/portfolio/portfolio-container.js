@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import PortfolioItem from "./portfolio-item";
-// import { getPortfolioItems } from "../pages/portfolio-manager";
 
 export default class PortfolioContainer extends Component {
   constructor() {
@@ -11,7 +10,7 @@ export default class PortfolioContainer extends Component {
     this.state = {
       pageTitle: "Welcome to my portfolio",
       isLoading: false,
-      data: [],
+      data: []
     };
 
     this.handleFilter = this.handleFilter.bind(this);
@@ -19,34 +18,33 @@ export default class PortfolioContainer extends Component {
 
   handleFilter(filter) {
     this.setState({
-      data: this.state.data.filter((item) => {
+      data: this.state.data.filter(item => {
         return item.category === filter;
-      }),
+      })
     });
   }
 
   getPortfolioItems() {
     axios
-      .get("https://gaizkamg.devcamp.space/portfolio/portfolio_items", { withCredentials: true})
-      .then((response) => {
+      .get("https://jordan.devcamp.space/portfolio/portfolio_items")
+      .then(response => {
         this.setState({
-          data: response.data.portfolio_items,
+          data: response.data.portfolio_items
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
 
   portfolioItems() {
-    return this.state.data.map((item) => {
-      // debugger;
+    return this.state.data.map(item => {
       return <PortfolioItem key={item.id} item={item} />;
     });
   }
 
   componentDidMount() {
-     this.getPortfolioItems();
+    this.getPortfolioItems();
   }
 
   render() {

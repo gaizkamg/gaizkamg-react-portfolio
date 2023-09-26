@@ -1,11 +1,9 @@
-import React from 'react';
+import React from "react";
 
-const PortfolioDetail = (props) => {
-    return (
+export default function(props) {
+  return (
     <div>
-      <h2 className='pages'>Portfolio Detail <br/>  for {props.match.params.slug} </h2>
+      <h2>Portfolio Detail for {props.match.params.slug}</h2>
     </div>
   );
-};
-
-export default PortfolioDetail;
+}
