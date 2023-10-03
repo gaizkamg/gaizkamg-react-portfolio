@@ -17,3 +17,25 @@
     background-color: $dark-teal;
   }
 }
+
+@mixin input-element {
+  input {
+    font-family: 'Titillium Web', sans-serif;
+    font-size: 1.1rem;
+    width: 100%;
+    color: $charcoal;
+    padding: 5px 0px;
+    margin-bottom: 21px ;
+    border: 0px;
+    border-bottom: 1px solid $teal;
+    background-color: transparent;
+    transition: 0.5s all ease-in-out;
+
+    
+  }
+}
+
+@mixin base-grid {
+  display: grid;
+  gap: 21px;
+}
