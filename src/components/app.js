@@ -7,9 +7,10 @@ import {
   faTrash,
   faSignOutAlt,
   faEdit,
+  faSpinner
 } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTrash, faSignOutAlt, faEdit);
+library.add(faTrash, faSignOutAlt, faEdit, faSpinner);
 
 import NavigationContainer from "./navigation/navigation-container";
 import Home from "./pages/home";
