@@ -14,7 +14,7 @@ class Blog extends Component {
       totalCount: 0,
       currentPage: 0,
       isLoading: true,
-      blogModalIsOpen: false
+      blogModalIsOpen: false,
     };
 
     this.getBlogItems = this.getBlogItems.bind(this);
@@ -22,36 +22,44 @@ class Blog extends Component {
     window.addEventListener("scroll", this.onScroll, false);
     this.handleNewBlogClick = this.handleNewBlogClick.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
+    this.handleSuccessfulNewBlogSubmission = this.handleSuccessfulNewBlogSubmission.bind(
+      this
+    );
   }
 
-  handleModalClose(){
+  handleSuccessfulNewBlogSubmission(blog) {
     this.setState({
-      blogModalIsOpen: false
-
-    })
+      blogModalIsOpen: false,
+      blogItems: [blog].concat(this.state.blogItems),
+    });
   }
 
-
-  handleNewBlogClick(){
+  handleModalClose() {
     this.setState({
-      blogModalIsOpen: true
-    })
-  }  
+      blogModalIsOpen: false,
+    });
+  }
 
-onScroll() {
-   
-      if(this.state.isLoading || this.state.blogItems.length === this.state.totalCount) {
-        return;
-      }
+  handleNewBlogClick() {
+    this.setState({
+      blogModalIsOpen: true,
+    });
+  }
 
+  onScroll() {
+    if (
+      this.state.isLoading ||
+      this.state.blogItems.length === this.state.totalCount
+    ) {
+      return;
+    }
 
-      if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
-      ) {
-        this.getBlogItems();
-      }
-   
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      this.getBlogItems();
+    }
   }
 
   getBlogItems() {
@@ -60,11 +68,11 @@ onScroll() {
     });
 
     axios
-      .get(`https://gaizkamg.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://gaizkamg.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`,
+        { withCredentials: true }
+      )
       .then((response) => {
-        console.log("getting", response)
         this.setState({
           blogItems: this.state.blogItems.concat(response.data.portfolio_blogs),
           totalCount: response.data.meta.total_records,
@@ -80,7 +88,7 @@ onScroll() {
     this.getBlogItems();
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     window.removeEventListener("scroll", this.onScroll, false);
   }
 
@@ -91,20 +99,29 @@ onScroll() {
 
     return (
       <div className="blog-container">
-        <BlogModal 
-        handleModalClose={this.handleModalClose}
-        modalIsOpen={this.state.blogModalIsOpen}></BlogModal>
-<div className="new-blog-link">
-  <a onClick={this.handleNewBlogClick}>Open Modal!</a>
-</div>
+        <BlogModal
+          handleSuccessfulNewBlogSubmission={this.handleSuccessfulNewBlogSubmission}
+          handleModalClose={this.handleModalClose}
+          modalIsOpen={this.state.blogModalIsOpen}
+        ></BlogModal>
+
+        {this.props.loggedInStatus === "LOGGED_IN" ? (
+          <div className="new-blog-link">
+            <a onClick={this.handleNewBlogClick}>
+              <FontAwesomeIcon icon="plus-circle" />
+            </a>
+          </div>
+        ) : (
+          <div>Error</div>
+        )}
+
         <div className="content-container"> {blogRecords}</div>
 
-
         {this.state.isLoading ? (
-        <div className="content-loader">
-          <FontAwesomeIcon icon="spinner" spin />
-        </div>) : null
-        }
+          <div className="content-loader">
+            <FontAwesomeIcon icon="spinner" spin />
+          </div>
+        ) : null}
       </div>
     );
   }

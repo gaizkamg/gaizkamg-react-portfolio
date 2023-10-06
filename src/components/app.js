@@ -3,14 +3,16 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrash,
-  faSignOutAlt,
-  faEdit,
-  faSpinner
-} from "@fortawesome/free-solid-svg-icons";
+import "../helpers/icons";
+// import {
+//   faTrash,
+//   faSignOutAlt,
+//   faEdit,
+//   faSpinner,
+//   faPlusCircle
+// } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faTrash, faSignOutAlt, faEdit, faSpinner);
+// library.add(faTrash, faSignOutAlt, faEdit, faSpinner, faPlusCircle);
 
 import NavigationContainer from "./navigation/navigation-container";
 import Home from "./pages/home";
@@ -97,7 +99,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="container">
-        <Router>
+           <Router>
           <div>
             <NavigationContainer
               loggedInStatus={this.state.loggedInStatus}
@@ -109,7 +111,7 @@ export default class App extends Component {
 
               <Route
                 path="/auth"
-                render={(props) => (
+                render={props => (
                   <Auth
                     {...props}
                     handleSuccessfulLogin={this.handleSuccessfulLogin}
@@ -120,8 +122,24 @@ export default class App extends Component {
 
               <Route path="/about-me" component={About} />
               <Route path="/contact" component={Contact} />
-              <Route path="/blog" component={Blog} />
-              <Route path="/b/:slug" component={BlogDetail} />
+
+              <Route
+                path="/blog"
+                render={props => (
+                  <Blog {...props} loggedInStatus={this.state.loggedInStatus} />
+                )}
+              />
+
+              <Route
+                path="/b/:slug"
+                render={props => (
+                  <BlogDetail
+                    {...props}
+                    loggedInStatus={this.state.loggedInStatus}
+                  />
+                )}
+              />
+
               {this.state.loggedInStatus === "LOGGED_IN"
                 ? this.authorizedPages()
                 : null}
