@@ -16,18 +16,24 @@ class Blog extends Component {
     };
 
     this.getBlogItems = this.getBlogItems.bind(this);
-    this.activateInfiniteScroll();
+    this.onScroll = this.onScroll.bind(this);
+    window.addEventListener("scroll", this.onScroll, false);
   }
 
-  activateInfiniteScroll() {
-    window.onscroll = () => {
+onScroll() {
+   
+      if(this.state.isLoading || this.state.blogItems.length === this.state.totalCount) {
+        return;
+      }
+
+
       if (
         window.innerHeight + document.documentElement.scrollTop ===
         document.documentElement.offsetHeight
       ) {
-        console.log("get more posts");
+        this.getBlogItems();
       }
-    };
+   
   }
 
   getBlogItems() {
@@ -36,12 +42,13 @@ class Blog extends Component {
     });
 
     axios
-      .get("https://gaizkamg.devcamp.space/portfolio/portfolio_blogs", {
+      .get(`https://gaizkamg.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`, {
         withCredentials: true,
       })
       .then((response) => {
+        console.log("getting", response)
         this.setState({
-          blogItems: response.data.portfolio_blogs,
+          blogItems: this.state.blogItems.concat(response.data.portfolio_blogs),
           totalCount: response.data.meta.total_records,
           isLoading: false,
         });
@@ -53,6 +60,10 @@ class Blog extends Component {
 
   componentDidMount() {
     this.getBlogItems();
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener("scroll", this.onScroll, false);
   }
 
   render() {
